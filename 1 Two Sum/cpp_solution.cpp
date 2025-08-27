@@ -1,20 +1,23 @@
+#include <utility>
 #include <vector>
-
-using namespace std;
+#include <unordered_map>
 
 class Solution
 {
 public:
-    vector<int> twoSum(vector<int>& nums, int target)
-    {
-        for (int x = 0; x < nums.size(); x++)
-            for (int y = x + 1; y < nums.size(); y++)
-            {
-                if (nums[x] + nums[y] == target)
-                {
-                    return { x, y };
-                }
-            }
-        return { };
-    }
+	static const std::pair<int, int> twoSum(std::vector<int> arr, int target)
+	{
+		std::unordered_map<int, int> summap;
+
+		int diff;
+		for (int i = 0; i < arr.size(); i++)
+		{
+			diff = target - arr[i];
+			if (summap.count(diff))
+			{
+				return { i, summap[diff] };
+			}
+			summap[arr[i]] = i;
+		}
+	}
 };
